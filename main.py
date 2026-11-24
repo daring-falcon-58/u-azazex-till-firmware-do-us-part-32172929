@@ -70,6 +70,10 @@ def main() -> None:
         raise ValueError(f"vow must be 1-200 characters, got {len(VOW)}")
     if "\n" in VOW or not VOW.strip():
         raise ValueError("vow must be a single non-blank line")
+    if VOW.count(".") != 1 or not VOW.endswith("."):
+        raise ValueError("vow must be exactly one sentence, ending in one period")
+    if VOW != VOW.strip():
+        raise ValueError("vow must not start or end with whitespace")
     output_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / "entry.txt"
